@@ -7,6 +7,10 @@ import vertexShader from "./shaders/earth/vertex.glsl";
 import fragmentShader from "./shaders/earth/fragment.glsl";
 import atmosphereVertexShader from "./shaders/earth/atmosphereVertex.glsl";
 import atmosphereFragmentShader from "./shaders/earth/atmosphereFragment.glsl";
+import sunVertexShader from "./shaders/sun/vertex.glsl";
+import sunFragmentShader from "./shaders/sun/fragment.glsl";
+import sunAtmosphereVertexShader from "./shaders/sun/atmosphereVertex.glsl";
+import sunAtmosphereFragmentShader from "./shaders/sun/atmosphereFragment.glsl";
 
 const scene = new THREE.Scene();
 
@@ -17,7 +21,7 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 // Set camera position
-camera.position.z = 15;
+camera.position.z = 30;
 
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
@@ -91,6 +95,48 @@ const earthAtmosphere = new Sphere({
 earthAtmosphere.scale.set(1.1, 1.1, 1.1);
 scene.add(earthAtmosphere);
 
+// Sun
+const sun = new Sphere({
+  radius: 100,
+  widthSegments: 1000,
+  heightSegments: 1000,
+  vertexShader: sunVertexShader,
+  fragmentShader: sunFragmentShader,
+  uniforms: {
+    time: { value: 0.0 },
+    sunTexture: {
+      value: new THREE.TextureLoader().load("/assets/sun_map.jpg"),
+    },
+  },
+});
+scene.add(sun);
+const animateNoise = (time) => {
+  time *= 0.001;
+  sun.material.uniforms.time.value = time;
+};
+
+// Sun's Atmosphere
+const sunAtmosphere = new Sphere({
+  radius: 100,
+  widthSegments: 1000,
+  heightSegments: 1000,
+  vertexShader: sunAtmosphereVertexShader,
+  fragmentShader: sunAtmosphereFragmentShader,
+  blending: THREE.AdditiveBlending,
+  side: THREE.BackSide,
+});
+sunAtmosphere.scale.set(1.1, 1.1, 1.1);
+scene.add(sunAtmosphere);
+
+// Create a group object
+const sunGroup = new THREE.Group();
+// Add the sun and sun atmosphere meshes to the group
+sunGroup.add(sun);
+sunGroup.add(sunAtmosphere);
+// Add the group to the scene
+scene.add(sunGroup);
+sunGroup.position.set(0, 0, -200);
+
 // Create a Starfield
 const starGeometry = new THREE.BufferGeometry();
 const starMaterial = new THREE.PointsMaterial({
@@ -110,8 +156,10 @@ starGeometry.setAttribute(
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
 
-renderer.setAnimationLoop(function () {
+renderer.setAnimationLoop((time) => {
   renderer.render(scene, camera);
-  // Rotate Earth
+  animateNoise(time);
+  // Rotate
   earth.rotation.y += 0.001;
+  sun.rotation.y += 0.001;
 });
