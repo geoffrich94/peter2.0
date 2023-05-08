@@ -1,10 +1,10 @@
 import * as THREE from "three";
 
 // Import Shaders
-import vertexShader from "./shaders/vertex.glsl";
-import fragmentShader from "./shaders/fragment.glsl";
-import atmosphereVertexShader from "./shaders/atmosphereVertex.glsl";
-import atmosphereFragmentShader from "./shaders/atmosphereFragment.glsl";
+import vertexShader from "./shaders/earth/vertex.glsl";
+import fragmentShader from "./shaders/earth/fragment.glsl";
+import atmosphereVertexShader from "./shaders/earth/atmosphereVertex.glsl";
+import atmosphereFragmentShader from "./shaders/earth/atmosphereFragment.glsl";
 
 const canvasContainer = document.querySelector("#canvas-container");
 
@@ -35,14 +35,12 @@ function init() {
 
   // Create a new sphere
   const geometry = new THREE.SphereGeometry(5, 50, 50);
-  const textureMap = new THREE.TextureLoader().load("/assets/earth_map.jpg");
-  console.log(textureMap);
   const material = new THREE.ShaderMaterial({
     vertexShader: vertexShader,
     fragmentShader: fragmentShader,
     uniforms: {
       earthTexture: {
-        value: textureMap,
+        value: new THREE.TextureLoader().load("/assets/earth_map.jpg"),
       },
     },
   });
