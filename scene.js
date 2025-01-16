@@ -1,6 +1,6 @@
-import * as THREE from "three";
-import { VRButton } from "three/addons/webxr/VRButton.js";
+import * as THREE from "three"; // This will now be resolved by the import map
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 // Import Shaders
 import vertexShader from "./shaders/earth/vertex.glsl";
@@ -22,6 +22,15 @@ const camera = new THREE.PerspectiveCamera(
 );
 // Set camera position
 camera.position.z = 30;
+
+// Lights
+const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+ambientLight.position.set(0, 0, 0);
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0xfffff, 2);
+pointLight.position.set(0, 0, 0);
+scene.add(pointLight);
 
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
@@ -95,11 +104,16 @@ const earthAtmosphere = new Sphere({
 earthAtmosphere.scale.set(1.1, 1.1, 1.1);
 scene.add(earthAtmosphere);
 
+// Earth Group
+const earthGroup = new THREE.Group();
+earthGroup.add(earth, earthAtmosphere);
+// scene.add(earthGroup);
+
 // Sun
 const sun = new Sphere({
-  radius: 100,
-  widthSegments: 1000,
-  heightSegments: 1000,
+  radius: 10,
+  widthSegments: 100,
+  heightSegments: 100,
   vertexShader: sunVertexShader,
   fragmentShader: sunFragmentShader,
   uniforms: {
@@ -117,9 +131,9 @@ const animateNoise = (time) => {
 
 // Sun's Atmosphere
 const sunAtmosphere = new Sphere({
-  radius: 100,
-  widthSegments: 1000,
-  heightSegments: 1000,
+  radius: 10,
+  widthSegments: 100,
+  heightSegments: 100,
   vertexShader: sunAtmosphereVertexShader,
   fragmentShader: sunAtmosphereFragmentShader,
   blending: THREE.AdditiveBlending,
@@ -128,17 +142,16 @@ const sunAtmosphere = new Sphere({
 sunAtmosphere.scale.set(1.1, 1.1, 1.1);
 scene.add(sunAtmosphere);
 
-// Create a group object
+// Sun Group
 const sunGroup = new THREE.Group();
-// Add the sun and sun atmosphere meshes to the group
-sunGroup.add(sun);
-sunGroup.add(sunAtmosphere);
-// Add the group to the scene
+sunGroup.add(sun, sunAtmosphere);
 scene.add(sunGroup);
-sunGroup.position.set(0, 0, -200);
+sunGroup.position.set(0, 0, 0);
 
 // Create a Starfield
 const starGeometry = new THREE.BufferGeometry();
+// const starCount = 15000;
+// const starVerticies = new Float32Array(starCount);
 const starMaterial = new THREE.PointsMaterial({
   color: 0xffffff,
 });

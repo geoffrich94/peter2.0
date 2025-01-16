@@ -10,6 +10,15 @@
       href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700&family=Lato&display=swap"
       rel="stylesheet"
     />
+    <!-- Import map for Three.js CDN -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.151.3/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.151.3/examples/jsm/"
+        }
+      }
+    </script>
   </head>
   <body>
     <section class="flex">
@@ -17,15 +26,23 @@
         <div class="text-container">
           <h1>Peter 2.0: The Human Cyborg</h1>
           <p class="text">
-            In 2017, Dr Peter Scott-Morgan, a visionary roboticist, was
+            In 2017, Dr. Peter Scott-Morgan, a visionary roboticist, was
             diagnosed with motor neuron disease (MND). This degenerative illness
             would eventually paralyze him completely except for the movement of
             his eyes. However, Peter chose to fight back with technology and
-            become Peter 2.0, the “world’s first human cyborg.”
+            become Peter 2.0, the “world’s first human cyborg.”<br /><br />Building
+            on this vision, Peter 2.0 v2 is a project I am working on that uses
+            custom shaders written in GLSL to enhance the visual aspects of his
+            digital representation, creating more immersive effects, while
+            focusing on improving the overall aesthetic experience of his
+            transformation.
           </p>
-          <a class="btn" href="https://vr-cyborg-studio-stable.glitch.me/"
-            >See VR Experience</a
-          >
+          <div class="btn-wrapper">
+            <a class="btn" href="https://vr-cyborg-studio-stable.glitch.me/"
+              >See VR Experience</a
+            >
+            <a class="btn" href="scene.html">Peter 2.0 v2</a>
+          </div>
         </div>
       </div>
       <div class="right" id="canvas-container">

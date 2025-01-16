@@ -42,6 +42,11 @@ section {
   max-width: 500px;
 }
 
+.btn-wrapper {
+  display: flex;
+  column-gap: 20px;
+}
+
 /* Elements */
 
 h1 {
