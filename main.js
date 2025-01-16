@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import * as THREE from "three"; // This will now be resolved by the import map
 
 // Import Shaders
 import vertexShader from "./shaders/earth/vertex.glsl";
