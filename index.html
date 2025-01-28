@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="utf-8" />
+    <title>Space</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+
+      /* Button styling */
+      #moveForwardButton {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1; /* Ensures button is on top of the canvas */
+      }
+
+      #moveBackButton {
+        position: absolute;
+        top: 20px;
+        left: 320px;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1; /* Ensures button is on top of the canvas */
+      }
+
+      #moveLeftButton {
+        position: absolute;
+        top: 20px;
+        left: 600px;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1; /* Ensures button is on top of the canvas */
+      }
+
+      #moveRightButton {
+        position: absolute;
+        top: 20px;
+        left: 900px;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1; /* Ensures button is on top of the canvas */
+      }
+
+      #moveButton:hover {
+        background-color: #2980b9;
+      }
+    </style>
+    <!-- Import map for Three.js CDN -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.151.3/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.151.3/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button id="moveForwardButton">Move Camera Forward</button>
+    <button id="moveBackButton">Move Camera back</button>
+    <button id="moveLeftButton">Move Camera Left</button>
+    <button id="moveRightButton">Move Camera Right</button>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
